@@ -73,23 +73,23 @@ WSGI_APPLICATION = 'pizzeria.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pizzeria_db',
-        'USER': 'root',
-        'PASSWORD': '@Arianna22',
-        'HOST': 'db',  # Use 'localhost' for a local MySQL server
-        'PORT': '3306',       # MySQL default port
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'pizzeria_db',
+#         'USER': 'root',
+#         'PASSWORD': '@Arianna22',
+#         'HOST': 'db',  # Use 'localhost' for a local MySQL server
+#         'PORT': '3306',       # MySQL default port
+#     }
+# }
 
 
 # Password validation
