@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': 'pizzeria_db',
         'USER': 'root',
         'PASSWORD': '@Arianna22',
-        'HOST': 'localhost',  # Use 'localhost' for a local MySQL server
+        'HOST': 'db',  # Use 'localhost' for a local MySQL server
         'PORT': '3306',       # MySQL default port
     }
 }

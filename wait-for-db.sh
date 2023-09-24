@@ -3,7 +3,7 @@
 # wait-for-db.sh
 set -e
 
-host="$1"
+host="$db"
 shift
 cmd="$@"
 
