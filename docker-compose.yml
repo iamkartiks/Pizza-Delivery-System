@@ -2,13 +2,12 @@ version: '3'
 
 services:
   db:
-    container_name: 'db'
+    hostname: 'db'
     image: mysql:8.1.0
     environment:
       MYSQL_DATABASE: pizzeria_db
       MYSQL_ROOT_USER: "root"
       MYSQL_ROOT_PASSWORD: "@Arianna22"
-      MYSQL_ROOT_HOST: "localhost"
     ports:
       - "3306:3306"
     volumes:
@@ -18,7 +17,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+    entrypoint: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
     volumes:
       - .:/Pizza-Delivery-System
     ports:
