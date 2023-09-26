@@ -1,17 +1,17 @@
 version: '3'
 
 services:
-  db:
-    hostname: 'db'
-    image: mysql:8.1.0
-    environment:
-      MYSQL_DATABASE: pizzeria_db
-      MYSQL_ROOT_USER: "root"
-      MYSQL_ROOT_PASSWORD: "@Arianna22"
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./mysql-data:/var/lib/mysql
+  # db:
+  #   hostname: 'db'
+  #   image: mysql:8.1.0
+  #   environment:
+  #     MYSQL_DATABASE: pizzeria_db
+  #     MYSQL_ROOT_USER: "root"
+  #     MYSQL_ROOT_PASSWORD: "@Arianna22"
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - ./mysql-data:/var/lib/mysql
 
   web:
     build:
@@ -22,5 +22,5 @@ services:
       - .:/Pizza-Delivery-System
     ports:
       - "8000:8000"
-    depends_on:
-      - db
+    # depends_on:
+    #   - db
