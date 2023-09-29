@@ -79,11 +79,11 @@ class PizzaOrderSerializer(serializers.ModelSerializer):
         pizzas_data = validated_data.pop('pizzas')
         request = self.context.get('request')
         total_price = len(pizzas_data) * 69  # Calculate the total price based on the number of pizzas
-        order_status = "Accepted"
+        order_status = "Placed"
         pizza_order = PizzaOrder.objects.create(customer=request.user, total_price=total_price, order_status=order_status, **validated_data)
 
         update_order_status.apply_async(args=[pizza_order.id], countdown=0) 
-        
+
         for pizza_data in pizzas_data:
             base_data = pizza_data.pop('base', None)
             cheese_data = pizza_data.pop('cheese', None)
