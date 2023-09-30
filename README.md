@@ -1,12 +1,14 @@
-# Blink Simple Blog Rest API
+# Pizzera Simple Pizza Order Systek
 
-> This is Simple Blog Backend API built using Django Rest Framework
+> This is Simple Blog Backend API built using Django Rest Framework 
 
 
 ## Technologies Used
-- python - version 3.9.6
-- django - version 4.1.7
-- django-rest-framework - version 5.2.2
+- python
+- django
+- django-rest-framework
+- docker
+- celery
 
 
 ## Features
@@ -33,9 +35,9 @@ pip install -r requirements.txt
 
 Now you have your basics set up 
 
-- Run the local server using the command 
+- Now cd to the project directory and run the following command
 
-python manage.py runserver
+docker-compose up -d
  
 This will get your server running
 
