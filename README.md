@@ -1,6 +1,6 @@
 # Pizzera Simple Pizza Order Systek
 
-> This is Simple Blog Backend API built using Django Rest Framework 
+> This is Simple Pizza Ordering System Backend API built using Django Rest Framework 
 
 
 ## Technologies Used
