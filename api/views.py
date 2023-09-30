@@ -103,9 +103,39 @@ class PizzaOrderViewSet(viewsets.ModelViewSet):
 
 
 class PizzaOrderCreateAPIView(APIView):
+    def get(elf, request, *args, **kwargs):
+        bases = PizzaBase.objects.all()
+        cheese = Cheese.objects.all()
+        toppings = Topping.objects.all()
+
+        # Serialize the data
+        pizza_serializer = PizzaBaseSerializer(bases, many=True)
+        topping_serializer = ToppingsSerializer(toppings, many=True)
+        cheese_serializer = CheeseSerializer(cheese, many=True)
+
+        # Create a response containing the serialized data
+        response_data = {
+            'pizzas': pizza_serializer.data,
+            'cheese': cheese_serializer.data,
+            'toppings': topping_serializer.data,
+        }
+
+        return Response(response_data)
     
     def post(self, request, format=None):
-        serializer = PizzaOrderSerializer(data=request.data, context={'request': request})
+        data = request.data
+        pizzas_data = data.pop('pizzas')
+        for pizza_data in pizzas_data:
+            base_data = pizza_data.pop('base', None)
+            cheese_data = pizza_data.pop('cheese', None)
+            toppings_data = pizza_data.pop('toppings', [])
+
+            if len(toppings_data)>5:
+                return Response('Please select only 5 toppings')
+            elif len(toppings_data)<5:
+                return Response('Please select atleast 5 toppings')
+                
+        serializer = PizzaOrderSerializer(data=data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
