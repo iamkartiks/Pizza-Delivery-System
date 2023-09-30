@@ -82,7 +82,7 @@ class PizzaOrderSerializer(serializers.ModelSerializer):
         order_status = "Placed"
         pizza_order = PizzaOrder.objects.create(customer=request.user, total_price=total_price, order_status=order_status, **validated_data)
 
-        update_order_status.apply_async(args=[pizza_order.id], countdown=0) 
+        update_order_status.delay(pizza_order.id) 
 
         for pizza_data in pizzas_data:
             base_data = pizza_data.pop('base', None)
