@@ -87,7 +87,8 @@ class PizzaOrderSerializer(serializers.ModelSerializer):
         for pizza_data in pizzas_data:
             base_data = pizza_data.pop('base', None)
             cheese_data = pizza_data.pop('cheese', None)
-            toppings_data = pizza_data.pop('toppings', [])                
+            toppings_data = pizza_data.pop('toppings', [])
+
             pizza = Pizza.objects.create(order=pizza_order, **pizza_data)
 
             if base_data:
@@ -105,4 +106,3 @@ class PizzaOrderSerializer(serializers.ModelSerializer):
                 pizza.toppings.add(topping)
 
         return pizza_order
-
