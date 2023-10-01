@@ -91,7 +91,7 @@ class PizzaOrdersAPIView(APIView):
 
     permission_classes = [permissions.IsAuthenticated]
     def get(self, request, *args, **kwargs):
-        orders = PizzaOrder.objects.filter(customer_name=self.request.user)
+        orders = PizzaOrder.objects.filter(customer_id=self.request.user)
         serializer =  PizzaOrderSerializer(orders, many=True)
         return Response(serializer.data)
 
@@ -106,13 +106,13 @@ class PizzaOrderCreateAPIView(APIView):
         toppings = Topping.objects.all()
 
         # Serialize the data
-        pizza_serializer = PizzaBaseSerializer(bases, many=True)
+        pizza_base_serializer = PizzaBaseSerializer(bases, many=True)
         topping_serializer = ToppingsSerializer(toppings, many=True)
         cheese_serializer = CheeseSerializer(cheese, many=True)
 
         # Create a response containing the serialized data
         response_data = {
-            'pizzas': pizza_serializer.data,
+            'pizzas': pizza_base_serializer.data,
             'cheese': cheese_serializer.data,
             'toppings': topping_serializer.data,
         }
@@ -121,11 +121,11 @@ class PizzaOrderCreateAPIView(APIView):
     
     def post(self, request, format=None):
         data = request.data
-        pizzas_data = data.pop('pizzas')
+        pizzas_data = data.get('pizzas',[])
         for pizza_data in pizzas_data:
-            base_data = pizza_data.pop('base', None)
-            cheese_data = pizza_data.pop('cheese', None)
-            toppings_data = pizza_data.pop('toppings', [])
+            base_data = pizza_data.get('base', None)
+            cheese_data = pizza_data.get('cheese', None)
+            toppings_data = pizza_data.get('toppings', [])
 
             if len(toppings_data)>5:
                 return Response('Please select only 5 toppings')
@@ -137,7 +137,6 @@ class PizzaOrderCreateAPIView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
-            print('whyyyy',serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

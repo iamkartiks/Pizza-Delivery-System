@@ -74,7 +74,7 @@ class PizzaOrderSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         pizzas_data = validated_data.pop('pizzas')
         request = self.context.get('request')
-        total_price = len(pizzas_data) * 69  # Calculate the total price based on the number of pizzas
+        total_price = 0  # Calculate the total price based on the number of pizzas
         order_status = "Placed"
         pizza_order = PizzaOrder.objects.create(customer=request.user, total_price=total_price, order_status=order_status, **validated_data)
 
@@ -86,6 +86,7 @@ class PizzaOrderSerializer(serializers.ModelSerializer):
             toppings_data = pizza_data.pop('toppings', [])
 
             pizza = Pizza.objects.create(order=pizza_order, **pizza_data)
+            total_price += pizza.price
 
             if base_data:
                 base, created = PizzaBase.objects.get_or_create(**base_data)
@@ -101,4 +102,6 @@ class PizzaOrderSerializer(serializers.ModelSerializer):
                 topping, created = Topping.objects.get_or_create(**topping_data)
                 pizza.toppings.add(topping)
 
+        pizza_order.total_price = total_price
+        pizza_order.save()
         return pizza_order
