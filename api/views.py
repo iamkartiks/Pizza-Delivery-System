@@ -97,12 +97,9 @@ class PizzaOrdersAPIView(APIView):
 
 
 
-class PizzaOrderViewSet(viewsets.ModelViewSet):
-    queryset = PizzaOrder.objects.all()
-    serializer_class = PizzaOrderSerializer
-
-
 class PizzaOrderCreateAPIView(APIView):
+    
+    permission_classes = [permissions.IsAuthenticated]
     def get(elf, request, *args, **kwargs):
         bases = PizzaBase.objects.all()
         cheese = Cheese.objects.all()
@@ -134,11 +131,13 @@ class PizzaOrderCreateAPIView(APIView):
                 return Response('Please select only 5 toppings')
             elif len(toppings_data)<5:
                 return Response('Please select atleast 5 toppings')
-                
+        
         serializer = PizzaOrderSerializer(data=data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            print('whyyyy',serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

@@ -62,10 +62,6 @@ class PizzaSerializer(serializers.ModelSerializer):
         model = Pizza
         fields = ["base" ,"cheese", "toppings"]
     
-    # def validate_toppings(self, value):
-    #     if value.count() > 5:
-    #         raise serializers.ValidationError("You can select a maximum of 5 toppings.")
-    #     return value
 
 
 class PizzaOrderSerializer(serializers.ModelSerializer):
