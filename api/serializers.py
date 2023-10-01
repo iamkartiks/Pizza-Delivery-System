@@ -69,7 +69,7 @@ class PizzaOrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PizzaOrder
-        fields = ["customer", "pizzas", "total_price"]
+        fields = ["id", "customer", "pizzas", "total_price"]
 
     def create(self, validated_data):
         pizzas_data = validated_data.pop('pizzas')

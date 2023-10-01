@@ -140,3 +140,11 @@ class PizzaOrderCreateAPIView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+
+class TrackOrderAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    def get(self, request, order_id,  *args, **kwargs):
+        order = PizzaOrder.objects.get(pk=order_id)
+        status = order.order_status
+        return Response("Your order is {}".format(status))
+

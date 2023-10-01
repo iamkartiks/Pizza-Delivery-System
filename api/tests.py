@@ -84,4 +84,4 @@ class PizzaOrderCreateAPITest(APITestCase):
         if response.status_code == status.HTTP_400_BAD_REQUEST:
             print('Validation Errors:', response.data)
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)

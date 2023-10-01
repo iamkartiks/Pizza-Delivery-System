@@ -2,7 +2,7 @@ from django.urls import path, include
 from .views import UsersAPIView, MyTokenObtainPairView, PizzaOrderCreateAPIView
 from rest_framework_simplejwt.views import TokenRefreshView
 from .views import (PizzaBaseAPIView, ToppingsAPIView, 
-                    CheeseAPIView, AddUserAPI, PizzaOrdersAPIView) #UserLoginAPIView, UserRegisterationAPIView # AddUserAPI, 
+                    CheeseAPIView, AddUserAPI, PizzaOrdersAPIView, TrackOrderAPIView) #UserLoginAPIView, UserRegisterationAPIView # AddUserAPI, 
 
 
 urlpatterns = [
@@ -15,5 +15,6 @@ urlpatterns = [
     path('cheeseoptions/', CheeseAPIView.as_view(), name='users-list'),
     path('placeorder/', PizzaOrderCreateAPIView.as_view(), name="place-order"),
     path('allorders/', PizzaOrdersAPIView.as_view(), name="your-orders"),
+    path('trackorder/<int:order_id>', TrackOrderAPIView.as_view(), name="track-order"),
 
 ]
